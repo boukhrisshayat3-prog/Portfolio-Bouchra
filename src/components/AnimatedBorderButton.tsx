@@ -7,7 +7,7 @@ type AnimatedBorderButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 const AnimatedBorderButton = ({ children, className = "", ...props }: AnimatedBorderButtonProps) => {
   return (
     <button
-      className={`relative bg-primary border border-border 
+      className={`relative  border 
         text-foreground hover:border-primary/50 transition-all 
         duration-1000 focus:outline-none focus-visible:ring-2 
         focus-visible:ring-primary focus-visible:ring-offset-2 

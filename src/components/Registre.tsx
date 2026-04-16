@@ -52,6 +52,14 @@ export function Dashboard({ onLogin }: DashboardProps) {
   const [apiUsers, setApiUsers] = useState<ApiUser[]>([]);
   const [apiError, setApiError] = useState("");
 
+    const inputClassName = `relative border
+      --color-primary hover:border-primary/50 transition-all
+      duration-1000 focus:outline-none focus-visible:ring-2
+      focus-visible:ring-primary focus-visible:ring-offset-2
+      disabled:opacity-50 disabled:cursor-not-allowed group
+       text-lg font-medium overflow-visible
+      animated-border p-3 rounded-lg w-full focus:ring-2  outline-none`;
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -157,15 +165,15 @@ export function Dashboard({ onLogin }: DashboardProps) {
 
   return (
     <div
-      className="--color-background min-h-screen p-8 flex items-center justify-center relative bg-cover bg-center"
+      className="--color-primary min-h-screen p-8 flex items-center justify-center relative bg-cover bg-center"
       style={{ backgroundImage: "url('/hero.png')" }}
     >
       <div className="absolute inset-0 bg-black/45" />
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg border p-8 relative z-10">
-        <h1 className="text-3xl font-black text-slate-800 mb-2">
+      <div className="w-full max-w-md rounded-2xl shadow-lg border p-8 relative z-10"style={{ backgroundImage: "url('/hero.png')" }}>
+        <h1 className="text-3xl --color-secondary text-slate-800 mb-2">
           {mode === "register" ? "Create Account" : "Log In"}
         </h1>
-        <p className="text-slate-500 mb-6">
+        <p className="  --color-muted-foreground mb-6">
           {mode === "register"
             ? "Create email and password to access the portfolio."
             : "Use your email and password to enter."}
@@ -179,66 +187,55 @@ export function Dashboard({ onLogin }: DashboardProps) {
           {mode === "register" && (
             <>
               <div>
-                <label className="block mb-1 text-sm font-medium text-slate-700">
+                <label className="block mb-1 text-md font-medium --color-secondary">
                   Name
                 </label>
                 <input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full p-3 rounded-lg border border-slate-300 outline-none focus:ring-2 focus:ring-blue-400"
+                  className={inputClassName}
                   placeholder="Your full name"
                 />
               </div>
 
               <div>
-                <label className="block mb-1 text-sm font-medium text-slate-700">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-3 rounded-lg border border-slate-300 outline-none focus:ring-2 focus:ring-blue-400"
-                  placeholder="you@email.com"
-                />
-              </div>
-
-              <div>
-                <label className="block mb-1 text-sm font-medium text-slate-700">
+                <label className="block mb-1 text-sm font-medium --color-secondary">
                   Role
                 </label>
                 <input
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full p-3 rounded-lg border border-slate-300 outline-none focus:ring-2 focus:ring-blue-400"
-                  placeholder="Frontend Developer"
+                  className={inputClassName}
+                  placeholder="Your role"
                 />
               </div>
             </>
           )}
 
           <div>
-            <label className="block mb-1 text-sm font-medium text-slate-700">
+            <label className="block mb-1 text-sm font-medium --color-secondary">
               Email
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 rounded-lg border border-slate-300 outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Your email"
+              className={inputClassName}
+              placeholder="Your email address"
             />
           </div>
 
+    
+
           <div>
-            <label className="block mb-1 text-sm font-medium text-slate-700">
+            <label className="block mb-1 text-sm font-medium --color-secondary">
               Password
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 rounded-lg border border-slate-300 outline-none focus:ring-2 focus:ring-blue-400"
+              className={inputClassName}
               placeholder="Your password"
             />
           </div>
@@ -247,7 +244,7 @@ export function Dashboard({ onLogin }: DashboardProps) {
           {message && <p className="text-green-600 text-sm">{message}</p>}
         
 
-          <AnimatedBorderButton>
+          <AnimatedBorderButton className="mx-auto block">
             {mode === "register" ? "Create account" : "Log in"}
           </AnimatedBorderButton>
         
@@ -259,7 +256,7 @@ export function Dashboard({ onLogin }: DashboardProps) {
             resetFeedback();
             setMode((prev) => (prev === "register" ? "login" : "register"));
           }}
-          className="w-full mt-4 text-sm font-semibold text-primary hover:underline"
+          className="w-full mt-4 text-sm font-semibold  hover:underline"
         >
           {mode === "register"
             ? "Already have an account? Log in"
