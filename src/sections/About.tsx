@@ -49,11 +49,7 @@ export const About = () => {
 
             <div className="space-y-4 text-muted-foreground animate-fade-in animation-delay-200">
               <p>
-                I'm a passionate software engineer with over 5 years of
-                experience crafting digital products that make a difference. My
-                journey started with a curiosity for how things work on the web,
-                and it has evolved into a deep expertise in modern frontend
-                technologies.
+               I’m a passionate aspiring developer who enjoys building digital products and learning how the web works. My journey started with curiosity, and I’m currently focused on improving my skills in modern frontend technologies through continuous learning and practice.
               </p>
               <p>
                 I specialize in React, Next.js, and TypeScript, building
