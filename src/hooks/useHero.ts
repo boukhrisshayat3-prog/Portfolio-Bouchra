@@ -13,7 +13,11 @@ export const useHero = () => {
                 if (!response.ok) throw new Error("Error al cargar la API")
 
                 const data = await response.json()
-                setHero(data)
+                if (Array.isArray(data) && data.length > 0) {
+                    setHero(data[0])
+                } else {
+                    setHero(data)
+                }
             } catch (err) {
                 setError(err instanceof Error ? err.message : "Error Fatal")
             } finally {
