@@ -25,7 +25,7 @@ export const useUser = () => {
                 if (!response.ok) throw new Error('Error al cargar la API')
 
                 const data = await response.json();
-                setUser(data);
+                setUsers(data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Error Fatal')
             } finally {
