@@ -6,9 +6,9 @@ interface DashboardProps {
 }
 
 interface AuthCredential {
-  name?: string;
-  email?: string;
-  role?: string;
+  name: string;
+  email: string;
+  role: string;
   password: string;
 }
 
@@ -27,7 +27,15 @@ const readCredentials = (): AuthCredential[] => {
 
   try {
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    return Array.isArray(parsed)
+      ? parsed.filter(
+          (item): item is AuthCredential =>
+            typeof item?.name === "string" &&
+            typeof item?.email === "string" &&
+            typeof item?.role === "string" &&
+            typeof item?.password === "string"
+        )
+      : [];
   } catch {
     return [];
   }
