@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import type { Hero } from "@/types/hero"
+import type { Hero } from "../types/hero"
 
 export const useHero = () => {
     const [hero, setHero] = useState<Hero | null>(null)

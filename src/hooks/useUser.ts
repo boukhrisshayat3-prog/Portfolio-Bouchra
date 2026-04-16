@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import type { User } from "@/schemas/userSchema"
+import type { User } from "../schemas/userSchema"
 
 export const useUser = () => {
     const [users, setUsers] = useState<User[]>([])

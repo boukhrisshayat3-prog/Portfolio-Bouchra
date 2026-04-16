@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AnimatedBorderButton  from "@/components/AnimatedBorderButton";
+import AnimatedBorderButton  from "./AnimatedBorderButton";
 
 interface LoginProps {
     onLogin: (username: string) => void;
