@@ -67,7 +67,7 @@ const HeroInfo = ({ hero }: HeroProps) => {
 
             {/* Headline */}
             <div className="space-y-4">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fade-in animation-delay-100">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-snug md:leading-tight animate-fade-in animation-delay-100">
                 Junior Full Stack <span className="text-primary glow-text">Developer</span>
                 <br />
                 experiences with

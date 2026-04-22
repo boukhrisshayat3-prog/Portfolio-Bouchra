@@ -64,7 +64,7 @@ const Navbar = ({ onLogout }: NavbarProps) => {
               Log out
             </button>
           )}
-          <Button size="sm">Contact Me</Button>
+          <Button size="sm" href="#contact">Contact Me</Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -91,19 +91,24 @@ const Navbar = ({ onLogout }: NavbarProps) => {
               </a>
             ))}
 
-            <Button onClick={() => setIsMobileMenuOpen(false)}>
+            <Button
+              className="w-full"
+              href="#contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
               Contact Me
             </Button>
             {onLogout && (
-              <button
+              <Button
+                className="w-full"
+                type="button"
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   onLogout();
                 }}
-                className="rounded-full bg-primary px-4 py-2 text-left text-sm font-semibold text-primary-foreground hover:opacity-90"
               >
                 Log out
-              </button>
+              </Button>
             )}
           </div>
         </div>

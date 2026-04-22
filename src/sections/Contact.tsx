@@ -1,20 +1,226 @@
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import Button from "../components/Button";
+import { useContactInfo } from "../hooks/useContactInfo";
+import { useSendMessage } from "../hooks/useSendMessage";
+
+const iconMap: Record<string, LucideIcon> = {
+  mail: Mail,
+  email: Mail,
+  phone: Phone,
+  map: MapPin,
+  mappin: MapPin,
+  location: MapPin,
+};
+
 export const Contact = () => {
+  const {
+    contactInfo: apiContactInfo,
+    loading: contactLoading,
+    error: contactError,
+  } = useContactInfo();
+
+  const { sendMessage, loading: sending } = useSendMessage();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({
+    type: null,
+    message: "",
+  });
+
+ 
+  const contactInfo = apiContactInfo;
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      await sendMessage(formData);
+
+      setSubmitStatus({
+        type: "success",
+        message: "Message sent successfully! I'll get back to you soon.",
+      });
+
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      setSubmitStatus({
+        type: "error",
+        message:
+          err instanceof Error
+            ? err.message
+            : "Failed to send message. Try again later.",
+      });
+    }
+  };
+
   return (
-    <section id="contact" className="bg-slate-900 py-20">
-      <div className="container mx-auto px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white">Contact</h2>
-          <p className="mt-4 text-slate-300">
-            Si quieres trabajar conmigo, escribeme y hablamos de tu proyecto.
+    <section id="contact" className="py-32 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
+            Get In Touch
+          </span>
+
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 text-secondary-foreground">
+            Let's build{" "}
+            <span className="font-serif italic font-normal text-white">
+              something great.
+            </span>
+          </h2>
+
+          <p className="text-muted-foreground">
+            Have a project in mind? Send me a message and let's talk.
           </p>
-          <a
-            href="mailto:pedro@example.com"
-            className="inline-block mt-8 rounded-lg bg-primary px-6 py-3 font-semibold text-black hover:opacity-90"
-          >
-            Enviar mensaje
-          </a>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          {/* FORM */}
+          <div className="glass p-8 rounded-3xl border border-primary/30">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <input
+                className="w-full px-4 py-3 bg-surface rounded-xl border"
+                placeholder="Your name"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                required
+              />
+
+              <input
+                className="w-full px-4 py-3 bg-surface rounded-xl border"
+                placeholder="Email"
+                type="email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                required
+              />
+
+              <textarea
+                className="w-full px-4 py-3 bg-surface rounded-xl border resize-none"
+                rows={5}
+                placeholder="Message"
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+                required
+              />
+
+              <Button className="w-full" type="submit" size="lg" disabled={sending}>
+                {sending ? (
+                  "Sending..."
+                ) : (
+                  <>
+                    Send Message <Send className="w-5 h-5" />
+                  </>
+                )}
+              </Button>
+
+              {submitStatus.type && (
+                <div
+                  className={`flex items-center gap-3 p-4 rounded-xl ${
+                    submitStatus.type === "success"
+                      ? "bg-green-500/10 text-green-400"
+                      : "bg-red-500/10 text-red-400"
+                  }`}
+                >
+                  {submitStatus.type === "success" ? (
+                    <CheckCircle />
+                  ) : (
+                    <AlertCircle />
+                  )}
+                  <p className="text-sm">{submitStatus.message}</p>
+                </div>
+              )}
+            </form>
+          </div>
+
+          {/* CONTACT INFO */}
+          <div className="space-y-6">
+            <div className="glass rounded-3xl p-8">
+              <h3 className="text-xl font-semibold mb-6">
+                Contact Information
+              </h3>
+
+              {contactLoading && (
+                <p className="text-sm text-muted-foreground">
+                  Loading...
+                </p>
+              )}
+
+              {contactError && (
+                <p className="text-sm text-red-400">
+                  Failed to load contact info
+                </p>
+              )}
+
+              <div className="space-y-4">
+                {contactInfo.map((item, i) => {
+                  const Icon = iconMap[item.icon?.toLowerCase()] ?? Mail;
+
+                  return (
+                    <a
+                      key={item._id || i}
+                      href={item.href || "#"}
+                      className="flex items-center gap-4 p-4 rounded-xl hover:bg-surface"
+                    >
+                      <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-xl">
+                        <Icon className="w-5 h-5 text-primary" />
+                      </div>
+
+                      <div>
+                        <div className="text-sm text-muted-foreground">
+                          {item.label}
+                        </div>
+                        <div className="font-medium">{item.value}</div>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="glass rounded-3xl p-8 border border-primary/30">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                <span className="font-medium">Currently Available</span>
+              </div>
+              <p className="text-muted-foreground text-sm">
+                Open to new opportunities and projects.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
+
+export default Contact;
