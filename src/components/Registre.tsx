@@ -19,6 +19,10 @@ interface ApiUser {
   role: string;
 }
 
+interface ApiHero {
+  image?: string;
+}
+
 const AUTH_STORAGE_KEY = "auth_credentials";
 
 const readCredentials = (): AuthCredential[] => {
@@ -51,6 +55,7 @@ export function Dashboard({ onLogin }: DashboardProps) {
   const [error, setError] = useState("");
   const [apiUsers, setApiUsers] = useState<ApiUser[]>([]);
   const [apiError, setApiError] = useState("");
+  const [heroImage, setHeroImage] = useState("/hero.png");
 
     const inputClassName = `relative border
       --color-primary hover:border-primary/50 transition-all
@@ -75,7 +80,23 @@ export function Dashboard({ onLogin }: DashboardProps) {
       }
     };
 
+    const fetchHeroImage = async () => {
+      try {
+        const response = await fetch("https://ap-ihealen-journy.vercel.app/api/hero");
+        if (!response.ok) return;
+
+        const data: ApiHero | ApiHero[] = await response.json();
+        const heroData = Array.isArray(data) ? data[0] : data;
+        if (heroData?.image && heroData.image.trim()) {
+          setHeroImage(heroData.image);
+        }
+      } catch {
+        
+      }
+    };
+
     fetchUsers();
+    fetchHeroImage();
   }, []);
 
   const resetFeedback = () => {
@@ -166,10 +187,10 @@ export function Dashboard({ onLogin }: DashboardProps) {
   return (
     <div
       className="--color-primary min-h-screen p-8 flex items-center justify-center relative bg-cover bg-center"
-      style={{ backgroundImage: "url('/hero.png')" }}
+      style={{ backgroundImage: `url('${heroImage}')` }}
     >
       <div className="absolute inset-0 bg-black/45" />
-      <div className="w-full max-w-md rounded-2xl shadow-lg border p-8 relative z-10"style={{ backgroundImage: "url('/hero.png')" }}>
+      <div className="w-full max-w-md rounded-2xl shadow-lg border p-8 relative z-10" style={{ backgroundImage: `url('${heroImage}')` }}>
         <h1 className="text-3xl --color-secondary text-slate-800 mb-2">
           {mode === "register" ? "Create Account" : "Log In"}
         </h1>
