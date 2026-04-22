@@ -5,7 +5,7 @@ import {
   ChevronDown,
   Download,
 } from "lucide-react";
-import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa6";
 import  AnimatedBorderButton from "../components/AnimatedBorderButton";
 interface HeroProps {
     hero: Hero;
@@ -97,9 +97,9 @@ const HeroInfo = ({ hero }: HeroProps) => {
             <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
               <span className="text-sm text-muted-foreground">Follow me: </span>
               {[
-                { icon: FaGithub, href: "#" },
-                { icon: FaLinkedin, href: "#" },
-                { icon: FaXTwitter, href: "#" },
+                { icon: FaGithub, href: "https://github.com/boukhrisshayat3-prog?tab=repositories" },
+                { icon: FaLinkedin, href: "https://www.linkedin.com/in/bouchra-boukhriss-9590b4228" },
+                { icon: FaInstagram, href: "https://www.instagram.com/bouchra__dev?igsh=YXl0aTZtdndlOXNx" },
               ].map((social, idx) => (
                 <a
                   key={idx}
