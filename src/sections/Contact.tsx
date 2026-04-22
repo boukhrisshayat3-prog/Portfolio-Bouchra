@@ -73,36 +73,36 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-32 relative overflow-hidden">
+    <section id="contact" className="py-20 sm:py-24 lg:py-32 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
             Get In Touch
           </span>
 
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 text-secondary-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-4 mb-5 sm:mb-6 text-secondary-foreground leading-tight">
             Let's build{" "}
             <span className="font-serif italic font-normal text-white">
               something great.
             </span>
           </h2>
 
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
             Have a project in mind? Send me a message and let's talk.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto items-start">
           {/* FORM */}
-          <div className="glass p-8 rounded-3xl border border-primary/30">
-            <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="glass p-5 sm:p-8 rounded-3xl border border-primary/30">
+            <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
               <input
-                className="w-full px-4 py-3 bg-surface rounded-xl border"
+                className="w-full px-4 py-3 bg-surface rounded-xl border text-sm sm:text-base"
                 placeholder="Your name"
                 value={formData.name}
                 onChange={(e) =>
@@ -112,7 +112,7 @@ export const Contact = () => {
               />
 
               <input
-                className="w-full px-4 py-3 bg-surface rounded-xl border"
+                className="w-full px-4 py-3 bg-surface rounded-xl border text-sm sm:text-base"
                 placeholder="Email"
                 type="email"
                 value={formData.email}
@@ -123,7 +123,7 @@ export const Contact = () => {
               />
 
               <textarea
-                className="w-full px-4 py-3 bg-surface rounded-xl border resize-none"
+                className="w-full px-4 py-3 bg-surface rounded-xl border resize-none text-sm sm:text-base"
                 rows={5}
                 placeholder="Message"
                 value={formData.message}
@@ -163,25 +163,25 @@ export const Contact = () => {
           </div>
 
           {/* CONTACT INFO */}
-          <div className="space-y-6">
-            <div className="glass rounded-3xl p-8">
-              <h3 className="text-xl font-semibold mb-6">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="glass rounded-3xl p-5 sm:p-8">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">
                 Contact Information
               </h3>
 
               {contactLoading && (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mb-4">
                   Loading...
                 </p>
               )}
 
               {contactError && (
-                <p className="text-sm text-red-400">
+                <p className="text-sm text-red-400 mb-4">
                   Failed to load contact info
                 </p>
               )}
 
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {contactInfo.map((item, i) => {
                   const Icon = iconMap[item.icon?.toLowerCase()] ?? Mail;
 
@@ -189,17 +189,19 @@ export const Contact = () => {
                     <a
                       key={item._id || i}
                       href={item.href || "#"}
-                      className="flex items-center gap-4 p-4 rounded-xl hover:bg-surface"
+                      className="flex items-start sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl hover:bg-surface transition-colors"
                     >
-                      <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-xl">
-                        <Icon className="w-5 h-5 text-primary" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-primary/10 rounded-xl flex-shrink-0">
+                        <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                       </div>
 
                       <div>
-                        <div className="text-sm text-muted-foreground">
+                        <div className="text-xs sm:text-sm text-muted-foreground">
                           {item.label}
                         </div>
-                        <div className="font-medium">{item.value}</div>
+                        <div className="font-medium text-sm sm:text-base break-words">
+                          {item.value}
+                        </div>
                       </div>
                     </a>
                   );
@@ -207,12 +209,12 @@ export const Contact = () => {
               </div>
             </div>
 
-            <div className="glass rounded-3xl p-8 border border-primary/30">
+            <div className="glass rounded-3xl p-5 sm:p-8 border border-primary/30">
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
                 <span className="font-medium">Currently Available</span>
               </div>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 Open to new opportunities and projects.
               </p>
             </div>
