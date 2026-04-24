@@ -1,4 +1,5 @@
 import Navbar from './layout/Navbar'
+import Footer from './layout/Footer'
 import HeroInfo from './sections/Hero'
 import { About } from './sections/About'
 import Projects from './sections/Projects'
@@ -8,6 +9,7 @@ import { Contact } from './sections/Contact'
 import { useHero } from './hooks/useHero'
 import { useEffect, useState } from 'react'
 import { Dashboard } from './components/Registre'
+
 
 
 
@@ -61,6 +63,7 @@ function App() {
       <Experience />
       <Testimonials />
       <Contact />
+      <Footer />
      
     </div>
   )
